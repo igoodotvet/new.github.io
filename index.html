@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карточки-ассоциации</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <!-- PWA requirements -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+    <div class="container">
+        <div class="progress-info">
+            <span id="progress-text">0/0</span>
+        </div>
+        
+        <div class="card-container">
+            <div id="card-content">
+                <p>Загрузка...</p>
+            </div>
+        </div>
+        
+        <div class="input-section">
+            <input type="text" id="answer-input" placeholder="Введите ответ..." autocomplete="off">
+            <button id="check-btn">✓</button>
+        </div>
+        
+        <div class="compact-settings">
+            <div class="setting-row">
+                <div class="setting-item">
+                    <label>Порог:</label>
+                    <input type="number" id="mastery-threshold" min="1" max="10" value="3">
+                </div>
+                <div class="setting-item">
+                    <label>Макс.новых:</label>
+                    <input type="number" id="max-new-cards" min="1" max="20" value="10">
+                </div>
+            </div>
+            <div class="setting-row">
+                <div class="setting-item">
+                    <label>Опечатки:</label>
+                    <input type="number" id="typo-tolerance" min="0" max="3" value="1">
+                </div>
+                <div class="setting-item">
+                    <button id="reset-progress" class="small-btn">Сброс</button>
+                    <button id="export-progress" class="small-btn">Экспорт</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="offline-info" id="offline-status">
+            <span>⚡ Онлайн</span>
+        </div>
+        
+        <input type="file" id="import-file" accept=".json" style="display: none;">
+        
+        <!-- Debug info -->
+        <div id="debug-info" style="display: none; font-size: 0.8rem; color: #666; margin-top: 10px;"></div>
+    </div>
+
+    <script>
+        // Добавляем обработку ошибок загрузки модуля
+        window.addEventListener('error', function(e) {
+            console.error('Global error:', e.error);
+            document.getElementById('card-content').innerHTML = 
+                '<p style="color: red;">Ошибка загрузки. Проверьте консоль.</p>';
+        });
+    </script>
+    
+    <script src="app.js"></script>
+</body>
+</html>
